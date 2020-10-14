@@ -31,7 +31,9 @@ class IngredientsController < ApplicationController
       @ingredient = Ingredient.create(ingredient_params)
       if @ingredient.save
         flash[:notice] = "Ingredient successfully added!"
-        redirect_to ingredient_path(@ingredient)
+        redirect_to ingredients_path
+      else
+        render :new
       end
     end
   end

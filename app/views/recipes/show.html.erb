@@ -23,3 +23,9 @@
                                    :method => "delete"} %></p>
 
 <p><%= link_to "Return to recipes", recipes_path %></p>
+
+<%= form_for ingredients_path do |f| %>
+  <%= f.hidden_field :name %>
+  <%= hidden_field_tag "ingredient[name]", @recipe.name %>
+  <p><%= f.submit %></p>
+<% end %>
