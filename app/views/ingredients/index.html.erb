@@ -1,0 +1,14 @@
+<h1>ingredients</h1>
+
+<% if @ingredients.any? %>
+  <ul>
+    <% @ingredients.each do |ingredient| %>
+      <li><%= link_to ingredient.name, ingredient_path(ingredient) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no ingredients yet.</p>
+<% end %>
+
+
+<p><%= link_to "Create new ingredient", new_ingredient_path %></p>

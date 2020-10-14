@@ -1,0 +1,10 @@
+<h1>Tag: <%= @tag.category %></h1>
+<h2>Recipe: <%= @recipe.name %></h2>
+<h3><%= @tag.category %></h3>
+
+<p><%= link_to "Edit tag", edit_recipe_tag_path(@recipe, @tag) %></p>
+<p><%= link_to "Delete tag", recipe_tag_path(@recipe, @tag),
+                        :data => {:confirm => "Are you sure?",
+                                       :method => "delete"} %></p>
+
+<p><%= link_to "Return to recipe", recipe_path(@recipe) %></p>

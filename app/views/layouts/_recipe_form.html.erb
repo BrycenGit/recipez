@@ -1,0 +1,11 @@
+<%= render "layouts/errors", :object => @recipe %>
+
+<%= form_for @recipe do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :instructions %>
+  <%= f.text_area :instructions %>
+  <%= f.label :rating %>
+  <%= f.number_field :rating %>
+  <%= f.submit %>
+<% end %>

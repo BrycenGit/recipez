@@ -1,0 +1,25 @@
+<h1><%= @recipe.name %></h1>
+<h3>Rating: <%= @recipe.rating %></h3>
+
+<% if @recipe.ingredients.any? %>
+  <h4>Here are the ingredients for this recipe:</h4>
+
+  <% @recipe.ingredients.each do |ingredient| %>
+    <ul>
+      <li>
+        <%= link_to ingredient.name, recipe_ingredient_path(@recipe, ingredient) %>
+      </li>
+    </ul>
+  <% end %>
+<% else %>
+  <p>No ingredients are listed for this recipe.</p>
+<% end %>
+
+<p><%= link_to "Add a ingredient", new_recipe_ingredient_path(@recipe) %></p>
+
+<p><%= link_to "Edit", edit_recipe_path(@recipe) %></p>
+<p><%= link_to "Delete", recipe_path(@recipe),
+                         :data => {:confirm => "You sure?",
+                                   :method => "delete"} %></p>
+
+<p><%= link_to "Return to recipes", recipes_path %></p>
