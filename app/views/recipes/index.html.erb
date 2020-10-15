@@ -1,6 +1,18 @@
 <h1>Recipes</h1>
 
+<% if Recipe.five_star.any?%>
+<h3> Check out the <em>Top Recipes</em> </h3>
+<hr>
+  <ul>
+    <% Recipe.five_star.each do |recipe| %>
+      <li><%= link_to recipe.name, recipe_path(recipe) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @recipes.any? %>
+<h3>All Recipes</h3>
+<hr>
   <ul>
     <% @recipes.each do |recipe| %>
       <li><%= link_to recipe.name, recipe_path(recipe) %></li>
@@ -10,6 +22,27 @@
   <p>There are no recipes yet.</p>
 <% end %>
 
+<br>
+<hr>
+
+<p>Search for a recipe:</p>
+<%= form_tag(recipes_path, method: :get) do %>
+  <%= text_field_tag(:name_search, params[:name_search]) %>
+  <%= submit_tag ("Search") %>
+<% end %>
+
+<% if @search_results %>
+  <% if @search_results.any? %>
+    <h4>Here are your recipes:</h4>
+    <ul>
+      <% @search_results.each do |result| %>
+        <li><%= result.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No results for this query</p>
+  <% end %>
+<% end %>
 
 <p><%= link_to "Create new recipe", new_recipe_path %></p>
 

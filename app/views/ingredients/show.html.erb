@@ -2,22 +2,56 @@
 
 <% if @recipe %>
 
-<h2>Recipe: <%= @recipe.name %></h2>
+  <h2>Recipe: <%= @recipe.name %></h2>
 
-<h3><%= @ingredient.name %></h3>
+  <h3><%= @ingredient.name %></h3>
 
-<p><%= link_to "Edit ingredient", edit_recipe_ingredient_path(@recipe, @ingredient) %></p>
-<p><%= link_to "Delete ingredient", recipe_ingredient_path(@recipe, @ingredient),
-                        :data => {:confirm => "Are you sure?",
-                                       :method => "delete"} %></p>
+  <p><%= link_to "Edit ingredient", edit_recipe_ingredient_path(@recipe, @ingredient) %></p>
+  <p><%= link_to "Delete ingredient", recipe_ingredient_path(@recipe, @ingredient),
+                          :data => {:confirm => "Are you sure?",
+                                        :method => "delete"} %></p>
 
-<p><%= link_to "Return to recipe", recipe_path(@recipe) %></p>
+  <p><%= link_to "Return to recipe", recipe_path(@recipe) %></p>
 
 <% else %>
+
+  <% if @ingredient.recipes.any? %>
+    <ul>
+    <% @ingredient.recipes.each  do | recipe | %>
+      <li>
+      <%= link_to recipe.name, recipe_path(recipe)  %>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p>There are no recipes using this ingredient</p>
+  <% end %>
+<br>
+<hr>
 <p><%= link_to "Edit ingredient", edit_ingredient_path(@ingredient) %></p>
 <p><%= link_to "Delete ingredient", ingredient_path(@ingredient),
                         :data => {:confirm => "Are you sure?",
                                        :method => "delete"} %></p>
-
 <p><%= link_to "Return to ingredients", ingredients_path %></p>
+<% end %>
+<br>
+<hr>
+<p>Search for a recipe:</p>
+<%= form_tag(ingredient_path, method: :get) do %>
+  <%= text_field_tag(:name_search, params[:name_search]) %>
+  <%= submit_tag ("Search") %>
+<% end %>
+<% if @search_results %>
+  <% if @search_results.any? %>
+    <h4>Here are your recipes:</h4>
+    <ul>
+      <% @search_results.each do |recipe| %>
+      <%= form_tag(recipe_path(recipe), method: :get) do %>
+      <%= submit_tag ("") %>
+        <li><%= recipe.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No results for this query</p>
+  <% end %>
 <% end %>

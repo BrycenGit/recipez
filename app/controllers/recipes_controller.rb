@@ -2,6 +2,14 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
+    if params[:name_search]
+      if params[:name_search] != ""
+        @search_results = Recipe.search(params[:name_search])
+      else
+        flash[:notice] = "please enter a search query!"
+        @search_results = false
+      end
+    end
     render :index
   end
 
@@ -49,7 +57,7 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.require(:recipe).permit(:name, :instructions, :rating)
+    params.require(:recipe).permit(:name, :instructions, :rating, :search)
   end
 
 end

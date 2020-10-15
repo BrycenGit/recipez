@@ -45,7 +45,18 @@ class IngredientsController < ApplicationController
   end
 
   def show
-    if params[:recipe_id]
+    if params[:name_search]
+      @recipe = false
+      @ingredient = Ingredient.find(params[:id])
+      if params[:name_search] != ""
+        @search_results = Recipe.search(params[:name_search])
+        render :show
+      else
+        flash[:notice] = "please enter a search query!"
+        @search_results = false
+        render :show
+      end
+    elsif params[:recipe_id]
       @recipe = Recipe.find(params[:recipe_id])
       @ingredient = Ingredient.find(params[:id])
       render :show
