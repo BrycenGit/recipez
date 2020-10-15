@@ -1,21 +1,9 @@
 <h1>Ingredient: <%= @ingredient.name %></h1>
 
-<% if @recipe %>
-
-  <h2>Recipe: <%= @recipe.name %></h2>
-
-  <h3><%= @ingredient.name %></h3>
-
-  <p><%= link_to "Edit ingredient", edit_recipe_ingredient_path(@recipe, @ingredient) %></p>
-  <p><%= link_to "Delete ingredient", recipe_ingredient_path(@recipe, @ingredient),
-                          :data => {:confirm => "Are you sure?",
-                                        :method => "delete"} %></p>
-
-  <p><%= link_to "Return to recipe", recipe_path(@recipe) %></p>
-
-<% else %>
 
   <% if @ingredient.recipes.any? %>
+  <h3>Recipes with this ingredient</h3>
+  
     <ul>
     <% @ingredient.recipes.each  do | recipe | %>
       <li>
@@ -33,7 +21,7 @@
                         :data => {:confirm => "Are you sure?",
                                        :method => "delete"} %></p>
 <p><%= link_to "Return to ingredients", ingredients_path %></p>
-<% end %>
+
 <br>
 <hr>
 <p>Search for a recipe:</p>
@@ -44,14 +32,14 @@
 <% if @search_results %>
   <% if @search_results.any? %>
     <h4>Here are your recipes:</h4>
-    <ul>
       <% @search_results.each do |recipe| %>
       <%= form_tag(recipe_path(recipe), method: :get) do %>
-      <%= submit_tag ("") %>
-        <li><%= recipe.name %></li>
+      <%= hidden_field_tag("ingredient_id", @ingredient.id) %>
+      <%= submit_tag ("#{recipe.name}"), class: 'btn btn-link' %><br>
       <% end %>
-    </ul>
+  <% end %>
   <% else %>
     <p>No results for this query</p>
-  <% end %>
 <% end %>
+<% end %>
+

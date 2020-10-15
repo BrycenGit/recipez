@@ -71,7 +71,12 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
     if @ingredient.update(ingredient_params)
       flash[:notice] = "ingredient successfully updated!"
-      redirect_to recipe_path(@ingredient.recipe)
+      if params[:recipe_id]
+        @recipe = Recipe.find(params[:recipe_id].to_i)
+        redirect_to recipe_path(@ingredient.recipe)
+      else
+        redirect_to ingredient_path(@ingredients)
+      end
     else
       render :edit
     end

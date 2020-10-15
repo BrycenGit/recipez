@@ -35,6 +35,11 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    if params[:ingredient_id]
+      puts "hello"
+      @ingredient = Ingredient.find(params[:ingredient_id].to_i)
+      @recipe.ingredients << @ingredient
+    end
     render :show
   end
 

@@ -1,4 +1,6 @@
+<div class = "jumbotron">
 <h1>Recipes</h1>
+</div>
 
 <% if Recipe.five_star.any?%>
 <h3> Check out the <em>Top Recipes</em> </h3>
@@ -47,4 +49,3 @@
 <p><%= link_to "Create new recipe", new_recipe_path %></p>
 
 <p><%= link_to "Check out all the ingredients", ingredients_path %></p>
-

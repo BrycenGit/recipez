@@ -10,6 +10,43 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ h1 {
+   font-family: 'Pacifico';
+   text-align: center;
+   color: #eebb4d;
+   font-size: 72px;
+   padding-bottom: 25px;
+   margin: 30px;
+ }
+
+ h2, h3, h4, p, label {
+   font-family: 'Oswald';
+   color: #96bb7c;
+ }
+
+ a {
+  font-family: 'Oswald';
+  color: #eebb4d;
+ }
+
+ body {
+   background-color: #e3dfc8;
+ }
+
+ .jumbotron {
+  margin-top: 50px; 
+  background-color: #f5f1da;
+   color: #eebb4d;
+ }
+
+ hr {
+  width: 4%;
+  border: dotted #96bb7c 6px;
+  border-bottom: none;
+  margin: 10px auto;
+}
